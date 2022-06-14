@@ -124,47 +124,8 @@ function myTimer() {
   document.getElementById("nextclass1").innerHTML = nextclass1;
   document.getElementById("nextclass2").innerHTML = nextclass2;
   document.getElementById("nextclass3").innerHTML = nextclass3;
-
-  var nextSpcfClassNum = document.getElementById("nextSpcfClass").value;
-  var nextSpcfClass, nextSpcfClassWhen;
-  console.log(curdaynum);
-  if (nextSpcfClassNum != "---") {
-    switch (nextSpcfClassNum) {
-      case "1":
-        nextSpcfClass = "Math";
-        break;
-      case "2":
-        nextSpcfClass = "English";
-        break;
-      case "3":
-        nextSpcfClass = "History";
-        break;
-      case "4":
-        nextSpcfClass = "Science";
-        break;
-      case "5":
-        nextSpcfClass = "Gym";
-        break;
-      case "6":
-        nextSpcfClass = "French";
-        break;
-      case "7":
-        nextSpcfClass = "Art";
-        break;
-      case "8":
-        nextSpcfClass = "Health";
-        break;
-      case "9":
-        nextSpcfClass = "Music";
-        break;
-    }
-    nextSpcfClass =
-      "Your next " + nextSpcfClass + " class is " + nextSpcfClassWhen;
-    document.getElementById("whenNextSpcfClass").innerHTML = nextSpcfClass;
-  } else {
-    document.getElementById("whenNextSpcfClass").innerHTML = "";
-  }
 }
+
 setInterval(myTimer, 250);
 
 $(document).on("click", "#showAllClasses", function () {
