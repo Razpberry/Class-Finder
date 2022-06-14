@@ -6,18 +6,19 @@ var hours = dcurr.getHours();
 var minutes = dcurr.getMinutes();
 var seconds = dcurr.getSeconds();
 
+var curdaynum;
+
 function myTimer() {
   dcurr = new Date();
   dayoftheweek = dcurr.getDay();
   dayoftheweekword = weekdays[dayoftheweek];
   hours = dcurr.getHours();
   minutes = dcurr.getMinutes();
-  dmins = getMinInDay();
   document.getElementById("dateandtime").innerHTML =
     dayoftheweekword + ", " + dcurr.toLocaleTimeString();
 
   function getMinInDay() {
-    minutes1 = hours * 60 + minutes;
+    let minutes1 = hours * 60 + minutes;
     return minutes1;
   }
 
@@ -37,16 +38,18 @@ function myTimer() {
   dayoftheweekword = weekdays[dayoftheweek];
 
   if (dayoftheweek == 6 || dayoftheweek == 0) {
-    curdaynum = "It's a weekend!";
+    curdaynum = "It's the weekend!";
   } else {
-    var curdaynum = dayoftheweek - 1;
+    curdaynum = dayoftheweek - 1;
 
     if (curdaynum < 0) {
       curdaynum += 5;
     }
   }
 
-  function classFind(num, max, start, end) {
+  function classFind(num, max) {
+    var start = p[num];
+    var end = p[num + 1];
     curclass = days[curdaynum][num];
     nextclass1 = days[curdaynum][num + 1];
     nextclass2 = days[curdaynum][num + 2];
@@ -71,26 +74,26 @@ function myTimer() {
 
   function getPeriod() {
     if (dayoftheweek == 6 || dayoftheweek == 0) {
-      curclass = "It's a weekend!";
+      curclass = "It's the weekend!";
       setAllEmpty();
-    } else if (dmins >= 530 && dmins < 580) {
-      classFind(0, 9, 530, 580);
-    } else if (dmins >= 580 && dmins < 630) {
-      classFind(1, 9, 580, 630);
-    } else if (dmins >= 630 && dmins < 650) {
-      classFind(2, 9, 630, 650);
-    } else if (dmins >= 650 && dmins < 700) {
-      classFind(3, 9, 650, 700);
-    } else if (dmins >= 700 && dmins < 730) {
-      classFind(4, 9, 700, 730);
-    } else if (dmins >= 730 && dmins < 761) {
-      classFind(5, 9, 730, 761);
-    } else if (dmins >= 761 && dmins < 811) {
-      classFind(6, 9, 761, 811);
-    } else if (dmins >= 811 && dmins < 861) {
-      classFind(7, 9, 811, 861);
-    } else if (dmins >= 861 && dmins <= 911) {
-      classFind(8, 9, 861, 911);
+    } else if (dmins >= p[0] && dmins < p[1]) {
+      classFind(0, 9);
+    } else if (dmins >= p[1] && dmins < p[2]) {
+      classFind(1, 9);
+    } else if (dmins >= p[2] && dmins < p[3]) {
+      classFind(2, 9);
+    } else if (dmins >= p[3] && dmins < p[4]) {
+      classFind(3, 9);
+    } else if (dmins >= p[4] && dmins < p[5]) {
+      classFind(4, 9);
+    } else if (dmins >= p[5] && dmins < p[6]) {
+      classFind(5, 9);
+    } else if (dmins >= p[6] && dmins < p[7]) {
+      classFind(6, 9);
+    } else if (dmins >= p[7] && dmins < p[8]) {
+      classFind(7, 9);
+    } else if (dmins >= p[8] && dmins <= p[9]) {
+      classFind(8, 9);
     } else {
       curclass = "You're not supposed to be in school right now?!";
       setAllEmpty();
@@ -98,7 +101,7 @@ function myTimer() {
     return curclass;
   }
 
-  if (curdaynum == "It's a weekend!") {
+  if (curdaynum == "It's the weekend!") {
     document.getElementById("day").innerHTML = "";
     document.getElementById("currentday").innerHTML = "";
     document.getElementById("currentclass").innerHTML = "";
@@ -121,6 +124,71 @@ function myTimer() {
   document.getElementById("nextclass1").innerHTML = nextclass1;
   document.getElementById("nextclass2").innerHTML = nextclass2;
   document.getElementById("nextclass3").innerHTML = nextclass3;
-}
 
-setInterval(myTimer, 1000);
+  var nextSpcfClassNum = document.getElementById("nextSpcfClass").value;
+  var nextSpcfClass, nextSpcfClassWhen;
+  console.log(curdaynum);
+  if (nextSpcfClassNum != "---") {
+    switch (nextSpcfClassNum) {
+      case "1":
+        nextSpcfClass = "Math";
+        break;
+      case "2":
+        nextSpcfClass = "English";
+        break;
+      case "3":
+        nextSpcfClass = "History";
+        break;
+      case "4":
+        nextSpcfClass = "Science";
+        break;
+      case "5":
+        nextSpcfClass = "Gym";
+        break;
+      case "6":
+        nextSpcfClass = "French";
+        break;
+      case "7":
+        nextSpcfClass = "Art";
+        break;
+      case "8":
+        nextSpcfClass = "Health";
+        break;
+      case "9":
+        nextSpcfClass = "Music";
+        break;
+    }
+    nextSpcfClass =
+      "Your next " + nextSpcfClass + " class is " + nextSpcfClassWhen;
+    document.getElementById("whenNextSpcfClass").innerHTML = nextSpcfClass;
+  } else {
+    document.getElementById("whenNextSpcfClass").innerHTML = "";
+  }
+}
+setInterval(myTimer, 250);
+
+$(document).on("click", "#showAllClasses", function () {
+  if (curdaynum == "It's the weekend!") {
+    if (document.getElementById("showAllClassesText").innerHTML != "") {
+      document.getElementById("showAllClassesText").innerHTML = "";
+    } else {
+      document.getElementById("showAllClassesText").innerHTML =
+        "Still the weekend...";
+    }
+  } else {
+    if (document.getElementById("showAllClassesText").innerHTML != "") {
+      document.getElementById("showAllClassesText").innerHTML = "";
+    } else {
+      let text;
+      for (var i = 0; i < 9; i++) {
+        if (i == 0) {
+          text = "Period " + (i + 1) + ": " + days[curdaynum][i];
+        } else {
+          text =
+            text + "<br/> " + "Period " + (i + 1) + ": " + days[curdaynum][i];
+        }
+      }
+      document.getElementById("showAllClassesText").innerHTML = text;
+    }
+  }
+});
