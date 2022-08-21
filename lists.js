@@ -15,7 +15,7 @@ const day1 = [
 
 const day2 = [
   "Math", // 8:50 - 9:39
-  "Gym", // 9:40 - 10:29
+  "Math/Gym", // 9:40 - 10:29
   "Break", // 10:30 - 10:49
   "French", // 10:50 - 11:39
   "Inside Recess", // 11:40 - 12:09
