@@ -40,7 +40,7 @@ function myTimer() {
   if (dayoftheweek == 6 || dayoftheweek == 0) {
     curdaynum = "It's the weekend!";
   } else {
-    curdaynum = dayoftheweek - 2
+    curdaynum = dayoftheweek
 ;
 
     if (curdaynum < 0) {
